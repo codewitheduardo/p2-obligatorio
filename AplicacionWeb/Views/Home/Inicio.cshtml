@@ -1,0 +1,115 @@
+﻿@{
+	ViewBag.Title = "Inicio";
+	bool esAdmin = Context.Session.GetString("rol") == "Administrador";
+}
+
+@if (esAdmin)
+{
+	@section HeaderCentro {
+	<div class="welcome-msg text-center">
+		<h5 class="mb-0">¡Bienvenido/a, @Context.Session.GetString("apodo")!</h5>
+		<small class="text-muted">Gestioná los vuelos y usuarios con eficiencia.</small>
+	</div>
+}
+}
+
+
+@if (!esAdmin)
+{
+	@section HeaderCentro {
+	<div class="welcome-msg text-center">
+		<h5 class="mb-0">¡Bienvenido/a, @Context.Session.GetString("nombre")!</h5>
+		<small class="text-muted">Disfrutá tu experiencia con Aero.</small>
+	</div>
+}
+}
+
+@if (ViewBag.Error != null)
+{
+	<div class="alert alert-danger text-center">@ViewBag.Error</div>
+}
+
+<div class="container-fluid">
+	<div class="row">
+
+		<main class="col">
+
+			<section class="hero position-relative">
+				<div class="hero-overlay"></div>
+				<div class="hero-content position-relative text-white p-5">
+					<h2 class="mb-4">Plan Your Trip</h2>
+					<div class="search-form bg-white bg-opacity-25 p-4 rounded-pill">
+						<div class="row align-items-center">
+							<div class="col">
+								<label>From</label>
+								<div class="d-flex align-items-center">
+									<span class="h5 mb-0">Buenos Aires</span>
+									<span class="ms-2">(EZE)</span>
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="bi bi-arrow-right"></i>
+							</div>
+							<div class="col">
+								<label>To</label>
+								<div class="d-flex align-items-center">
+									<span class="h5 mb-0">Londres</span>
+									<span class="ms-2">(LHR)</span>
+								</div>
+							</div>
+							<div class="col">
+								<label>Date</label>
+								<div class="d-flex align-items-center">
+									<span class="h5 mb-0">SABADO</span>
+									<i class="bi bi-calendar ms-2"></i>
+								</div>
+							</div>
+							<div class="col-auto d-flex align-items-center">
+								<a href="~/Vuelo/Detalle/BA111" class="btn btn-primary rounded-pill px-4">Search</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="recent-bookings p-4">
+				<h3 class="mb-4">Recent Booking</h3>
+				<div class="row g-4">
+					<div class="col-md-4">
+						<div class="booking-card booking-card-1 position-relative">
+							<div class="card-content text-white p-4">
+								<h4>París - CDG</h4>
+								<p>...</p>
+								<div class="date-badge">Available, 2025</div>
+							</div>
+							<div class="arrow-icon">
+								<a href="/Vuelo/Buscar?codSalida=&codLlegada=cdg" class="text-decoration-none text-white">
+									<i class="bi bi-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="booking-card booking-card-2 position-relative">
+							<div class="card-content text-white p-4">
+								<h4>Barcelona - BCN</h4>
+								<p>...</p>
+								<div class="date-badge">Available, 2025</div>
+							</div>
+							<div class="arrow-icon">
+								<a href="~/Vuelo/Buscar?codSalida=&codLlegada=bcn" class="text-decoration-none text-white">
+									<i class="bi bi-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="more-bookings">
+							<span>@(ViewBag.Vuelos - 2)+</span>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+</div>

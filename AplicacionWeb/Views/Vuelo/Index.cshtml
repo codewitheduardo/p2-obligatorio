@@ -1,0 +1,116 @@
+﻿@using Dominio
+@model List<Vuelo>
+
+@{
+	ViewBag.Title = "Panel de Vuelos";
+}
+
+<div class="pt-3 pb-5">
+	<h2 class="text-center text-primary fs-1">Panel de Vuelos</h2>
+</div>
+
+@if (ViewBag.Error != null)
+{
+	<div class="alert alert-danger text-center mb-5">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Mensaje != null)
+{
+	<div class="alert alert-success text-center mb-5">@ViewBag.Mensaje</div>
+}
+
+<!-- Botón flotante -->
+<button id="toggleFormBtn" class="floating-button" aria-label="Abrir buscador de vuelos" type="button">
+	<span class="material-symbols-outlined">search</span>
+</button>
+
+<!-- Buscar Vuelos -->
+<div id="searchFormContainer" class="search-form-container hidden">
+	<div class="card p-4 mx-auto buscador-card">
+		<h4 class="mb-3 text-primary text-center">Buscar Vuelos</h4>
+		<form method="get" action="~/Vuelo/Buscar" class="aeropuerto-search-vertical">
+			<div class="input-icon">
+				<span class="material-symbols-outlined icon">search</span>
+				<select name="codSalida" class="aeropuerto-search-input">
+					<option value="" disabled selected>Aeropuerto - Origen</option>
+					@foreach (Aeropuerto aeropuerto in ViewBag.Aeropuertos)
+					{
+						<option value="@aeropuerto.Codigo">@aeropuerto.Codigo - @aeropuerto.Ciudad</option>
+					}
+				</select>
+				<span class="material-symbols-outlined">
+					keyboard_arrow_down
+				</span>
+			</div>
+			<div class="input-icon">
+				<span class="material-symbols-outlined icon">search</span>
+				<select name="codLlegada" class="aeropuerto-search-input">
+					<option value="" disabled selected>Aeropuerto - Destino</option>
+					@foreach (Aeropuerto aeropuerto in ViewBag.Aeropuertos)
+					{
+						<option value="@aeropuerto.Codigo">@aeropuerto.Codigo - @aeropuerto.Ciudad</option>
+					}
+				</select>
+				<span class="material-symbols-outlined">
+					keyboard_arrow_down
+				</span>
+			</div>
+			<button type="submit" class="aeropuerto-search-button">
+				<i class="bi bi-search"></i>
+			</button>
+		</form>
+	</div>
+</div>
+
+<div class="table-container ms-5 me-5 mb-5">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Frecuencia</th>
+				<th>Origen</th>
+				<th>Destino</th>
+				<th>Vuelo</th>
+				<th>Precio</th>
+				<th>Equipaje</th>
+				<th>Fecha</th>
+				<th>Ver Detalle</th>
+				<th>Comprar</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Vuelo vuelo in Model)
+			{
+				<tr>
+					<form method="post" action="/Pasaje/Comprar" class="form-tabla">
+					<td>@String.Join(", ", vuelo.Frecuencia)</td>
+					<td>@vuelo.Ruta.Salida.Ciudad</td>
+					<td>@vuelo.Ruta.Llegada.Ciudad</td>
+					<td>@vuelo.Numero</td>
+					<td>$ @vuelo.ObtenerCostoPorAsiento().ToString("F2")</td>
+					<td>
+						<select name="equipaje" class="form-select borde-redondo">
+							<option value="null">...</option>
+								@foreach (string equipaje in Enum.GetNames(typeof(Equipaje)))
+								{
+								<option value="@equipaje">@equipaje</option>
+								}
+						</select>
+					</td>
+					<td><input type="date" name="fecha" class="form-control borde-redondo" /></td>
+					<td>
+						<a href="/Vuelo/Detalle/@vuelo.Numero" class="icono-comprar">
+							<span class="material-symbols-outlined">info</span>
+						</a>
+					</td>
+					<td>
+						<input type="hidden" name="id" value="@vuelo.Numero" />
+						<button type="submit" class="icono-comprar boton-sin-estilo">
+							<span class="material-symbols-outlined">shopping_cart_checkout</span>
+						</button>
+					</td>
+					</form>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

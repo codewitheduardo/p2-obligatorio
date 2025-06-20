@@ -1,0 +1,44 @@
+﻿@using Dominio
+@model List<Pasaje>
+
+@{
+	ViewBag.Title = "Pasajes";
+}
+
+<div class="pt-3 pb-5">
+	<h2 class="text-center text-primary fs-1">Pasajes</h2>
+</div>
+
+<div class="table-container ms-5 me-5 mb-5">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Vuelo</th>
+				<th>Origen</th>
+				<th>Destino</th>
+				<th>Fecha</th>
+				<th>Pasajero</th>
+				<th>Cliente</th>
+				<th>Equipaje</th>
+				<th>Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Pasaje pasaje in Model)
+			{
+				<tr>
+					<td>@pasaje.Id</td>
+					<td>@pasaje.Vuelo.Numero</td>
+					<td>@pasaje.Vuelo.Ruta.Salida.Ciudad</td>
+					<td>@pasaje.Vuelo.Ruta.Llegada.Ciudad</td>
+					<td>@pasaje.Fecha.ToString("dd MMM yyyy")</td>
+					<td>@pasaje.Pasajero.Nombre.ToUpper()</td>
+					<td>@pasaje.Pasajero.GetType().Name</td>
+					<td>@pasaje.Equipaje</td>
+					<td>$ @pasaje.Precio.ToString("F2")</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

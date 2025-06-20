@@ -1,0 +1,37 @@
+﻿@using Dominio
+@model Cliente
+
+@{
+	ViewBag.Title = "Mi Perfil";
+}
+
+<div class="d-flex justify-content-center pt-4 pb-5">
+	<div class="card card-registro">
+		<div class="card-header d-flex justify-content-center align-items-center gap-2">
+			<span class="material-symbols-outlined fs-4">account_circle</span>
+			<span class="fw-semibold">Perfil</span>
+		</div>
+		<div class="card-body-registro text-center">
+			<div>
+				<strong>Documento</strong>
+				<div class="text-muted">@Model.Documento</div>
+			</div>
+			<div>
+				<strong>Nombre</strong>
+				<div class="text-muted">@Model.Nombre</div>
+			</div>
+			<div>
+				<strong>Correo</strong>
+				<div class="text-muted">@Model.Correo</div>
+			</div>
+
+			@if (Model is Premium clientePremium)
+			{
+				<div class="mt-2 p-2 rounded bg-light w-100">
+					<strong class="text-success">Cliente Premium</strong>
+					<div class="text-muted">Puntos acumulados: <span class="fw-bold">@clientePremium.Puntos</span></div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

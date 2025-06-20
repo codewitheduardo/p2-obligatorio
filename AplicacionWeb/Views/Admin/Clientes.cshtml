@@ -1,0 +1,84 @@
+﻿@using Dominio
+@model List<Cliente>
+
+@{
+	ViewBag.Title = "Clientes";
+}
+
+<div class="pt-3 pb-5">
+	<h2 class="text-center text-primary fs-1">Clientes</h2>
+</div>
+
+@if (ViewBag.Mensaje != null)
+{
+	<div class="alert alert-success text-center mb-5">@ViewBag.Mensaje</div>
+}
+
+@if (ViewBag.Error != null)
+{
+	<div class="alert alert-danger text-center mb-5">@ViewBag.Error</div>
+}
+
+<div class="table-container ms-5 me-5 mb-5">
+	<table class="table tabla-clientes">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Correo</th>
+				<th>Documento</th>
+				<th>Nacionalidad</th>
+				<th>Tipo</th>
+				<th>Puntos / Elegible</th>
+				<th>Nuevo valor</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Cliente cliente in Model)
+			{
+				<tr>
+					<form method="post" action="/Admin/EditarCliente" class="form-tabla">
+					<td>@cliente.Nombre.ToUpper()</td>
+					<td>@cliente.Correo</td>
+					<td>@cliente.Documento</td>
+					<td>@cliente.Nacionalidad</td>
+					<td>@cliente.GetType().Name.ToUpper()</td>
+
+						@if (cliente is Premium clientePremium)
+						{
+						<td>@clientePremium.Puntos</td>
+						<td>
+							<input type="number" name="nuevosPuntos" class="form-select input-sin-flechas borde-redondo" placeholder="Puntos" />
+						</td>
+						}
+						else if (cliente is Ocasional clienteOcasional)
+						{
+							@if (clienteOcasional.ElegibleRegalo)
+							{
+							<td>SI</td>
+							}
+							else
+							{
+							<td>NO</td>
+							}
+						<td>
+							<select name="nuevoValor" class="form-select borde-redondo">
+								<option value="null">Elegibilidad</option>
+								<option value="true">Si elegible</option>
+								<option value="false">No elegible</option>
+							</select>
+						</td>
+						}
+
+					<input type="hidden" name="documento" value="@cliente.Documento" />
+					<td>
+						<button type="submit" title="Actualizar" class="icono-comprar boton-sin-estilo">
+							<span class="material-symbols-outlined">save</span>
+						</button>
+					</td>
+					</form>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
