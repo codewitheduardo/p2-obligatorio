@@ -1,4 +1,4 @@
-# ✈️ Sistema de Reservas de Vuelos - ASP.NET MVC (Sin Base de Datos)
+# ✈️ Sistema de Reservas de Vuelos - ASP.NET MVC
 
 Este proyecto es un prototipo académico de sistema de ventas de pasajes para una aerolínea, desarrollado utilizando ASP.NET 8.0 MVC **sin persistencia en base de datos**. Todos los datos se gestionan en memoria, simulando el funcionamiento real del sistema.
 
