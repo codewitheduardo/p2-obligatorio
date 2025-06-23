@@ -100,7 +100,7 @@ namespace Dominio
             this.AgregarUsuario(cliente);
         }
 
-        public Cliente ObtenerCliente(string documento) //busca clientes específicos
+        public Cliente ObtenerCliente(string documento) //busca clientes específicos por documento
         {
             Cliente retorno = null;
             int i = 0;
@@ -143,7 +143,7 @@ namespace Dominio
             clientePremium.Puntos = nuevosPuntos;
         }
 
-        public void CambiarElegibilidad(Ocasional clienteOcasional, bool? nuevoValor) //modifica la elegibilidad de un cliente ocasinal específico
+        public void CambiarElegibilidad(Ocasional clienteOcasional, bool? nuevoValor) //modifica la elegibilidad de un cliente ocasional específico
         {
             if (nuevoValor == null)
             {
@@ -253,7 +253,7 @@ namespace Dominio
             this._vuelos.Add(vuelo);
         }
 
-        public Vuelo ObtenerVuelo(string numero) //busca vuelos específicos
+        public Vuelo ObtenerVuelo(string numero) //busca vuelos específicos por número
         {
             Vuelo retorno = null;
             int i = 0;
@@ -284,21 +284,21 @@ namespace Dominio
                 bool ingresoSalida = !string.IsNullOrWhiteSpace(codSalida);
                 bool ingresoLlegada = !string.IsNullOrWhiteSpace(codLlegada);
 
-                if (ingresoSalida && ingresoLlegada)
+                if (ingresoSalida && ingresoLlegada) //evalúo si es true
                 {
                     if (salida == codSalida.ToUpper() && llegada == codLlegada.ToUpper())
                     {
                         retorno.Add(vuelo);
                     }
                 }
-                else if (ingresoSalida)
+                else if (ingresoSalida) //si la salida OR llegada del vuelo actual coincide con el código de salida ingresado (por parámetro)
                 {
                     if (salida == codSalida.ToUpper() || llegada == codSalida.ToUpper())
                     {
                         retorno.Add(vuelo);
                     }
                 }
-                else if (ingresoLlegada)
+                else if (ingresoLlegada) //si la salida OR llegada del vuelo actual coincide con el código de llegada ingresado (por parámetro)
                 {
                     if (salida == codLlegada.ToUpper() || llegada == codLlegada.ToUpper())
                     {
@@ -315,7 +315,7 @@ namespace Dominio
             this._pasajes.Add(pasaje);
         }
 
-        public void EmitirPasaje(Vuelo vuelo, DateTime fecha, Cliente cliente, Equipaje equipaje)
+        public void EmitirPasaje(Vuelo vuelo, DateTime fecha, Cliente cliente, Equipaje equipaje) //crea el pasaje, valida sus datos y lo agrega a la lista de pasajes
         {
             Pasaje pasaje = new Pasaje(vuelo, fecha, cliente, equipaje);
             pasaje.Validar();
@@ -328,7 +328,7 @@ namespace Dominio
 
             foreach (Pasaje pasaje in this._pasajes)
             {
-                if (pasaje.Fecha >= fecha1 && pasaje.Fecha <= fecha2 || pasaje.Fecha <= fecha1 && pasaje.Fecha >= fecha2)
+                if (pasaje.Fecha >= fecha1 && pasaje.Fecha <= fecha2 || pasaje.Fecha <= fecha1 && pasaje.Fecha >= fecha2) //condicion para ver la fecha del pasaje está entre las 2 que me pasaron
                 {
                     retorno.Add(pasaje);
                 }

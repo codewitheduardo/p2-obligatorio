@@ -89,7 +89,7 @@ namespace Dominio
             this._costoOperacion = costoOperacion;
             this._costoTasas = costoTasas;
         }
-
+        // Compara dos objetos Aeropuerto por su código IATA - recibe por parámetro cualquier tipo de objeto
         public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is Aeropuerto)) return false;
