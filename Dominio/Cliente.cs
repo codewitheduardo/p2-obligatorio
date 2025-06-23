@@ -72,6 +72,7 @@ namespace Dominio
             this._nacionalidad = nacionalidad;
         }
 
+        //Compara clientes por documento - recibe por parámetro cualquier tipo de objeto
         public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is Cliente)) return false;
