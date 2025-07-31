@@ -41,7 +41,7 @@ Este proyecto es un prototipo académico de sistema de ventas de pasajes para un
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/reservas-aerolinea.git
+   git clone https://github.com/codewitheduardo/p2-obligatorio.git
 2. Abre el proyecto con Visual Studio 2022 o superior.
 3. Ejecuta la aplicación (F5 o dotnet run).
 4. Se cargan usuarios y datos de ejemplo automáticamente desde código.
